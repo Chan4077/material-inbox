@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"scripts": {
 		"start": "ng serve",
-		"github-pages": "ng build --prod --output-path docs --base-href material-inbox && ngh"
+		"githubPages": "ng build --prod --base-href /material-inbox/ --deploy-url /material-inbox/ && ngh && rm -rf dist/"
 	},
 	"private": true,
 	"dependencies": {
@@ -30,7 +30,7 @@
 		"@angular/language-service": "^4.4.6",
 		"@types/jasmine": "~2.6.0",
 		"@types/jasminewd2": "~2.0.2",
-		"@types/node": "^8.0.45",
+		"@types/node": "^8.0.46",
 		"codelyzer": "~3.2.0",
 		"jasmine-core": "~2.8.0",
 		"jasmine-spec-reporter": "~4.2.1",
