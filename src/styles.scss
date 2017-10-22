@@ -1,0 +1,127 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import 'assets/md-font/material-icons.css';
+.mat-button, .mat-raised-button, .mat-simple-snackbar-action {
+	text-transform: uppercase;
+}
+.app-sidenav {
+    width: 236px;
+}
+
+.active-link {
+    color: #673ab7 !important;
+    background-color: #e8e8e8 !important;
+}
+
+.app-links-left>.mat-nav-list>a>.mat-list-item-content {
+    padding: initial;
+}
+
+.app-links-left {
+    width: 48px;
+    background-color: #ffffff;
+}
+
+.app-content,
+.app-links-left {
+    height: 100%;
+}
+
+.app-links-left>mat-nav-list>a>.mat-list-item-content>mat-icon {
+    margin: auto;
+    display: inline;
+    float: none;
+}
+
+.app-main {
+    padding: 8px;
+    width: 100%;
+}
+
+.isRefreshing {
+	animation: refreshing 0.5s infinite;
+}
+@keyframes refreshing {
+	0% {
+		transform: rotate(0deg);
+	}
+	25% {
+		transform: rotate(90deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	75% {
+		transform: rotate(270deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+/* Styles from https://github.com/amcdnl/material-inbox */
+
+.avatar {
+    display: inline-block;
+    border-radius: 50%;
+    height: 28px;
+    width: 28px;
+    color: #FFF;
+    text-align: center;
+    line-height: 28px;
+    font-size: 12px;
+}
+
+.avatar.large {
+    height: 32px;
+    width: 32px;
+    line-height: 32px;
+}
+
+.avatar.primary-1 {
+    background-color: #7b1fa2;
+}
+.avatar.accent-1 {
+	background-color: #ffd740;
+	color: black;
+}
+.message-body {
+	position: relative;
+	padding: 20px 24px;
+}
+.message-body-toolbar {
+	margin-bottom: 10px;
+}
+.message-from {
+	font-weight: bold;
+}
+.message-to {
+	color: #7a7a7a;
+}
+.message-more {
+	position: absolute !important;
+	top: 5px;
+	right: 5px;
+}
+.message-more-menu {
+	width: 200px;
+}
+.message-subject {
+	line-height: 40px;
+}
+.message-toolbar {
+	padding: 12px 24px;
+	width: 100%;
+	cursor: pointer;
+}
+.btn-col {
+	text-align: right;
+}
+.snooze-menu h2 {
+	padding: 0 15px;
+	margin: 5px 0;
+}
+.snooze-menu button {
+	font-size: 85%;
+}
+/* End styles */
