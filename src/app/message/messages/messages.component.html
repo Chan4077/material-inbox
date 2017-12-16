@@ -1,0 +1,59 @@
+<mat-accordion>
+	<mat-expansion-panel [hideToggle]="true" *ngFor="let email of emails">
+		<mat-expansion-panel-header>
+			<div class="message-toolbar" fxLayout="row" fxLayoutAlign="start center">
+				<div fxFlex="50px">
+					<span class="avatar accent-1">{{email.avatar}}</span>
+				</div>
+				<div fxFlex="20%">{{email.from}}</div>
+				<div class="message-subject" fxFill fxFlex>{{email.subject}}</div>
+				<div class="btn-col" fxFlex="15%">
+					<button mat-icon-button [matMenuTriggerFor]="snoozeMenu" matTooltip="Snooze">
+						<mat-icon>alarm</mat-icon>
+					</button>
+					<button mat-icon-button matTooltip="Delete">
+						<mat-icon>delete</mat-icon>
+					</button>
+					<button mat-icon-button matTooltip="Done">
+						<mat-icon>check</mat-icon>
+					</button>
+				</div>
+			</div>
+		</mat-expansion-panel-header>
+		<div class="message-body">
+			<div fxFlex="50px">
+				<span class="avatar accent-1 large">{{email.avatar}}</span>
+			</div>
+			<div fxFlex>
+				<div class="message-body-toolbar">
+					<span class="message-from">{{email.from}}</span>
+					<span class="message-to">to {{email.to}}</span>
+					<button mat-icon-button class="message-more" [matMenuTriggerFor]="moreMenu">
+						<mat-icon>more_vert</mat-icon>
+					</button>
+				</div>
+				<div *ngIf="!email.isHtml">
+					<p [innerText]="email.message"></p>
+				</div>
+				<div *ngIf="email.isHtml" [innerHTML]="email.message"></div>
+			</div>
+		</div>
+	</mat-expansion-panel>
+	<mat-menu #snoozeMenu="matMenu" xPosition="before" [overlapTrigger]="false" class="snooze-menu">
+		<h2>Snooze until...</h2>
+		<button mat-menu-item *ngFor="let snooze of snoozeOpts" (click)="snoozeItem(snooze)">
+			<mat-icon>{{snooze.icon}}</mat-icon>{{snooze.title}}</button>
+	</mat-menu>
+	<mat-menu #moreMenu="matMenu" class="message-more-menu" xPosition="before" [overlapTrigger]="false">
+		<button mat-menu-item>
+			<mat-icon>reply</mat-icon>Reply</button>
+		<button mat-menu-item>
+			<mat-icon>forward</mat-icon>Forward</button>
+		<mat-divider></mat-divider>
+		<button mat-menu-item>
+			<mat-icon>print</mat-icon>Print</button>
+		<button mat-menu-item>
+			<mat-icon>code</mat-icon>Show original
+		</button>
+	</mat-menu>
+</mat-accordion>

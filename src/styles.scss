@@ -1,12 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
 @import 'assets/md-font/material-icons.css';
-.mat-button, .mat-raised-button, .mat-simple-snackbar-action {
-	text-transform: uppercase;
+.mat-button,
+.mat-raised-button,
+.mat-simple-snackbar-action {
+    text-transform: uppercase;
 }
+
 .app-sidenav {
     width: 236px;
+}
+
+.app-toolbar {
+    z-index: 2;
 }
 
 .active-link {
@@ -21,6 +29,7 @@
 .app-links-left {
     width: 48px;
     background-color: #ffffff;
+    z-index: 2;
 }
 
 .app-content,
@@ -40,25 +49,28 @@
 }
 
 .isRefreshing {
-	animation: refreshing 0.5s infinite;
+    animation: refreshing 0.5s infinite;
 }
+
 @keyframes refreshing {
-	0% {
-		transform: rotate(0deg);
-	}
-	25% {
-		transform: rotate(90deg);
-	}
-	50% {
-		transform: rotate(180deg);
-	}
-	75% {
-		transform: rotate(270deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    75% {
+        transform: rotate(270deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
+
+
 /* Styles from https://github.com/amcdnl/material-inbox */
 
 .avatar {
@@ -81,47 +93,151 @@
 .avatar.primary-1 {
     background-color: #7b1fa2;
 }
+
 .avatar.accent-1 {
-	background-color: #ffd740;
-	color: black;
+    background-color: #ffd740;
+    color: black;
 }
+
 .message-body {
-	position: relative;
-	padding: 20px 24px;
+    position: relative;
+    padding: 20px 24px;
 }
+
 .message-body-toolbar {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
+
 .message-from {
-	font-weight: bold;
+    font-weight: bold;
 }
+
 .message-to {
-	color: #7a7a7a;
+    color: #7a7a7a;
 }
+
 .message-more {
-	position: absolute !important;
-	top: 5px;
-	right: 5px;
+    position: absolute !important;
+    top: 5px;
+    right: 5px;
 }
+
 .message-more-menu {
-	width: 200px;
+    width: 200px;
 }
+
 .message-subject {
-	line-height: 40px;
+    line-height: 40px;
 }
+
 .message-toolbar {
-	padding: 12px 24px;
-	width: 100%;
-	cursor: pointer;
+    padding: 12px 24px;
+    width: 100%;
+    cursor: pointer;
 }
+
 .btn-col {
-	text-align: right;
+    text-align: right;
 }
+
 .snooze-menu h2 {
-	padding: 0 15px;
-	margin: 5px 0;
+    padding: 0 15px;
+    margin: 5px 0;
 }
+
 .snooze-menu button {
-	font-size: 85%;
+    font-size: 85%;
 }
+
+.app-action {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.reminder-card {
+    margin-bottom: 5px;
+}
+
+.center {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.no-items-container {
+    padding: 4px;
+}
+
+.big-icon {
+    font-size: 108px;
+    width: 108px !important;
+    height: 108px !important;
+    background-color: grey;
+    color: white;
+    border-radius: 50%;
+    padding: 30px;
+    margin-bottom: 25px;
+    user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    @include mat-elevation(2);
+}
+
+
 /* End styles */
+
+// Dev mode styles
+.devmode-snackbar {
+    background-color: #f44336;
+    .mat-simple-snackbar-action {
+        color: #3F51B5 !important;
+    }
+}
+
+.devmode-chip .mat-icon {
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+// Google app menu
+.google-app-menu {
+    min-height: 100px;
+    min-width: 150px !important;
+}
+
+.google-app {
+    width: 60px !important;
+    height: 72px;
+}
+
+// Nav list styles
+.unread-badge {
+    border-radius: 50%;
+    background-color: #33ac71;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    text-align: center;
+    min-width: 24px;
+    min-height: 24px;
+    align-items: center;
+    vertical-align: middle;
+    color: white;
+    line-height: 24px;
+    font-size: 10px;
+}

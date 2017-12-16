@@ -1,21 +1,55 @@
 import { Observable } from 'rxjs/Observable';
-import { Injectable, Component, OnInit, ViewChild, DoCheck } from '@angular/core';
-import { MatSnackBarConfig, MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
-import { MatSelectionList } from '@angular/material/list';
-import { ComponentType } from '@angular/cdk/portal';
+import { Injectable, Component, OnInit, ViewChild, NgModule } from '@angular/core';
+import { MatSnackBarConfig, MatSnackBar, MatSnackBarRef, SimpleSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectionList, MatListModule } from '@angular/material/list';
+import { ComponentType, PortalModule } from '@angular/cdk/portal';
 import { Title, SafeHtml } from '@angular/platform-browser';
+import { MatCommonModule } from '@angular/material/core';
+import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 @Injectable()
-export class Shared {
+export class SharedInjectable {
 	private currentUser: string;
-	constructor(private snackBar: MatSnackBar, private dialog: MatDialog, private title: Title) { }
+	private _title: string;
+	constructor(
+		private snackBar: MatSnackBar,
+		private dialog: MatDialog,
+		private documentTitle: Title,
+		private breakpointObserver: BreakpointObserver) { }
 	/**
-	 * Opens a snackBar with the specified params and no return
-	 * @param {SnackBarConfig} opts The options of the snackBar
+	 * Sets the document's title
+	 * @param {string} title The title of the document to set
 	 */
-	public openSnackBar(opts: SnackBarConfig) {
-		this.handleSnackBar(opts);
+	set title(title: string) {
+		this._title = title;
+		if (title !== '') {
+			title = `${title} | `;
+		}
+		this.documentTitle.setTitle(`${title}First-Mod`);
+	}
+	/**
+	 * Returns the document's title
+	 */
+	get title(): string {
+		return this._title;
+	}
+	/**
+	 * Whether the user is on a mobile device
+	 * @returns {boolean}
+	 */
+	public isMobile(): boolean {
+		if (this.breakpointObserver.isMatched('(max-width: 699px)')) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	/**
 	 * Opens a snackBar with the specified params and a return of the snackBar's ref (for component)
@@ -30,32 +64,8 @@ export class Shared {
 	 * @param {SnackBarConfig} opts The options of the snackBar
 	 * @returns {MatSnackBar<SimpleSnackBar>}
 	 */
-	public openSnackBarWithRef(opts: SnackBarConfig): MatSnackBarRef<SimpleSnackBar> {
-		return this.handleSnackBarWithRef(opts);
-	}
-	/**
-	 * Handling of the snackBar
-	 * @param {SnackBarConfig} opts The snackBar config
-	 * @private
-	 */
-	private handleSnackBar(opts: SnackBarConfig) {
-		if (opts) {
-			if (opts.component) {
-				if (opts.additionalOpts) {
-					this.snackBar.openFromComponent(opts.component, opts.additionalOpts);
-				} else {
-					this.snackBar.openFromComponent(opts.component);
-				}
-			} else {
-				if (opts.action) {
-					this.snackBar.open(opts.msg, opts.action, opts.additionalOpts);
-				} else {
-					this.snackBar.open(opts.msg, undefined, opts.additionalOpts);
-				}
-			}
-		} else {
-			this.throwError("message", "string");
-		}
+	public openSnackBar(opts: SnackBarConfig): MatSnackBarRef<SimpleSnackBar> {
+		return this.handleSnackBar(opts);
 	}
 	/**
 	 * Handles a snackBar with a snackBarref if the developer needs a return
@@ -63,7 +73,7 @@ export class Shared {
 	 * @returns {MatSnackBarRef<SimpleSnackBar>}
 	 * @private
 	 */
-	private handleSnackBarWithRef(opts: SnackBarConfig): MatSnackBarRef<SimpleSnackBar> {
+	private handleSnackBar(opts: SnackBarConfig): MatSnackBarRef<SimpleSnackBar> {
 		if (opts) {
 			if (opts.action) {
 				let snackBarRef = this.snackBar.open(opts.msg, opts.action, opts.additionalOpts);
@@ -98,6 +108,7 @@ export class Shared {
 	}
 	/**
 	 * Closes the current snackBar
+	 * @deprecated Please use {@link MatSnackBar#dismiss} instead
 	 */
 	public closeSnackBar() {
 		this.snackBar.dismiss();
@@ -161,12 +172,14 @@ export class Shared {
 	/**
 	 * Gets all opens dialogs
 	 * @returns {MatDialogRef<any>[]}
+	 * @deprecated Please use {@link MatDialog#openDialogs} instead
 	 */
 	public getDialogs(): MatDialogRef<any>[] {
 		return this.dialog.openDialogs;
 	}
 	/**
 	 * Closes all dialogs
+	 * @deprecated Please use {@link MatDialog#closeAll} instead
 	 */
 	public closeAllDialogs() {
 		this.dialog.closeAll();
@@ -175,6 +188,7 @@ export class Shared {
 	 * Gets a dialog by its id
 	 * @param {string} id The ID of the dialog
 	 * @returns {MatDialogRef<any>}
+	 * @deprecated Please use {@link MatDialog#getDialogById} instead
 	 */
 	public getDialogById(id: string): MatDialogRef<any> {
 		return this.dialog.getDialogById(id);
@@ -182,6 +196,7 @@ export class Shared {
 	/**
 	 * Observable for after all dialogs have been closed
 	 * @returns {Observable<void>}
+	 * @deprecated Please use {@link MatDialog#afterAllClosed} instead
 	 */
 	public afterAllClosed(): Observable<void> {
 		return this.dialog.afterAllClosed;
@@ -189,24 +204,29 @@ export class Shared {
 	/**
 	 * Throws an error with the specified parameters
 	 * @param {string} variable The variable that was not specified
-	 * @param {string} type The type of variable
+	 * @param {string} type The type of variable (optional)
 	 * @private
 	 */
-	private throwError(variable: string, type: string) {
-		throw new Error(`${variable} was not specified. Please ensure that the ${variable} property is specified and that it is of type ${type}.`);
+	private throwError(variable: string, type?: string) {
+		if (type) {
+			throw new Error(`${variable} was not specified. Please ensure that the ${variable} property is specified and that it is of type "${type}".`);
+		} else {
+			throw new Error(`${variable} was not specified. Please ensure that the ${variable} property is specified.`);
+		}
 	}
 	/**
-	 * Sets the document's title
-	 * @param {string} title The title of the document to set
+	 * Checks if the app is in developer mode
+	 * @todo Make this `readonly`
+	 * @note Set it by changing the local storage and add a property `devMode` and set the value to true
 	 */
-	public setTitle(title: string) {
-		this.title.setTitle(title);
-	}
-	/**
-	 * Returns the document's title
-	 */
-	public getTitle(): string {
-		return this.title.getTitle();
+	checkDevMode(): boolean {
+		if (window.localStorage.getItem('devMode')) {
+			if (JSON.parse(window.localStorage.getItem('devMode'))) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
 }
 
@@ -216,9 +236,14 @@ export class Shared {
 	templateUrl: './partials/alertdialog.shared.html'
 })
 export class AlertDialog implements OnInit {
-	constructor(private dialogRef: MatDialogRef<AlertDialog>) {
-	}
+	constructor(private dialogRef: MatDialogRef<AlertDialog>) {}
+	/**
+	 * The configuration of the dialog
+	 */
 	alertConfig: AlertDialogConfig;
+	/**
+	 * Closes the dialog
+	 */
 	close() {
 		this.dialogRef.close();
 	}
@@ -233,13 +258,20 @@ export class AlertDialog implements OnInit {
 	templateUrl: './partials/confirmdialog.shared.html'
 })
 export class ConfirmDialog implements OnInit {
-	constructor(private dialogRef: MatDialogRef<ConfirmDialog>) {
-
-	}
+	constructor(private dialogRef: MatDialogRef<ConfirmDialog>) {}
+	/**
+	 * The configuration of the dialog
+	 */
 	confirmConfig: ConfirmDialogConfig;
+	/**
+	 * Closes the dialog and returns a result of "cancel"
+	 */
 	cancel() {
 		this.dialogRef.close("cancel");
 	}
+	/**
+	 * Closes the dialog and returns a result of "ok"
+	 */
 	ok() {
 		this.dialogRef.close("ok");
 	}
@@ -254,13 +286,26 @@ export class ConfirmDialog implements OnInit {
 	templateUrl: './partials/promptdialog.shared.html'
 })
 export class PromptDialog implements OnInit {
-	constructor(private dialogRef: MatDialogRef<PromptDialog>) {
-	}
+	constructor(private dialogRef: MatDialogRef<PromptDialog>) {}
+	/**
+	 * The configuration of the dialog
+	 */
 	promptConfig: PromptDialogConfig;
-	input: string | number;
+	/**
+	 * The type of input
+	 * @private
+	 * @note Please use the dialog config interface, where the input value can be specified
+	 */
+	private input: string | number;
+	/**
+	 * Closes the dialog and returns a result of "cancel"
+	 */
 	cancel() {
 		this.dialogRef.close("cancel");
 	}
+	/**
+	 * Closes the dialog and returns a result of the input's value
+	 */
 	ok() {
 		this.dialogRef.close(this.input);
 	}
@@ -277,23 +322,29 @@ export class PromptDialog implements OnInit {
 	selector: 'selection-dialog',
 	templateUrl: './partials/selectiondialog.shared.html'
 })
-export class SelectionDialog implements OnInit, DoCheck {
+export class SelectionDialog implements OnInit {
 	@ViewChild('selection') selection: MatSelectionList;
-	constructor(private dialogRef: MatDialogRef<SelectionDialog>) {
-	}
+	constructor(private dialogRef: MatDialogRef<SelectionDialog>) {}
+	/**
+	 * The configuration of the dialog
+	 */
 	selectionConfig: SelectionDialogConfig;
 	ngOnInit() {
 		if (this.selectionConfig.disableClose) {
 			this.dialogRef.disableClose = true;
 		}
 	}
+	/**
+	 * Closes the dialog and returns a result of "cancel"
+	 */
 	cancel() {
 		this.dialogRef.close("cancel");
 	}
+	/**
+	 * Closes the dialog and returns a result of "ok"
+	 */
 	ok() {
 		this.dialogRef.close(this.selection.selectedOptions.selected);
-	}
-	ngDoCheck() {
 	}
 }
 export interface SnackBarConfig {
@@ -432,3 +483,56 @@ export interface SelectionDialogOptions {
 	 */
 	selected?: boolean;
 }
+/**
+ * All dialogs
+ */
+const SHARED_DIALOGS = [
+	AlertDialog,
+	ConfirmDialog,
+	PromptDialog,
+	SelectionDialog
+];
+/**
+ * Material modules required
+ */
+const MATERIAL_MODULES = [
+	MatCommonModule,
+	MatButtonModule,
+	MatDialogModule,
+	MatFormFieldModule,
+	MatInputModule,
+	MatListModule,
+	MatSnackBarModule
+];
+/**
+ * CDK (Component DevKit) modules required
+ */
+const CDK_MODULES = [
+	LayoutModule,
+	PortalModule
+]
+/**
+ * The shared module
+ */
+@NgModule({
+	imports: [
+		CommonModule,
+		BrowserAnimationsModule,
+		FormsModule,
+		MATERIAL_MODULES,
+		CDK_MODULES
+	],
+	exports: [
+		SHARED_DIALOGS
+	],
+	providers: [
+		SharedInjectable
+	],
+	entryComponents: [
+		SHARED_DIALOGS
+	],
+	declarations: [
+		SHARED_DIALOGS
+	]
+})
+export class SharedModule {}

@@ -1,6 +1,7 @@
 <mat-sidenav-container fullscreen>
 	<mat-sidenav #left class="app-sidenav mat-elevation-z3" [mode]="isMobile ? 'over' : 'side'">
 		<mat-toolbar>
+			Links
 			<span fxFlex></span>
 			<button mat-icon-button (click)="left.close()">
 				<mat-icon>keyboard_arrow_left</mat-icon>
@@ -10,6 +11,8 @@
 			<a mat-list-item *ngFor="let link of links" [routerLink]="['/'+link.link]" routerLinkActive="active-link" (click)="left.close()">
 				<mat-icon matListIcon>{{link.icon}}</mat-icon>
 				<p matLine>{{link.title}}</p>
+				<span fxFlex></span>
+				<span class="unread-badge" [matTooltip]="link.unreadCount+' new emails'" matTooltipPosition="right" *ngIf="link.unreadCount">{{link.unreadCount}}</span>
 			</a>
 			<mat-divider></mat-divider>
 			<a mat-list-item *ngFor="let link of otherLinks" [routerLink]="['/'+link.link]" routerLinkActive="active-link" (click)="left.close()">
@@ -19,15 +22,26 @@
 		</mat-nav-list>
 	</mat-sidenav>
 	<mat-sidenav-content fxLayout="column">
-		<mat-toolbar color="primary" class="mat-elevation-z3">
+		<mat-toolbar color="primary" class="mat-elevation-z3 app-toolbar">
 			<button mat-icon-button (click)="left.open()" *ngIf="!isSidenavOpen">
 				<mat-icon>menu</mat-icon>
 			</button>
 			Inbox
 			<span fxFlex></span>
+			<mat-chip-list>
+				<mat-chip class="devmode-chip" *ngIf="isDevMode" color="warn" selected (dblclick)="disableDevMode()" matTooltip="Tap/ click two times to disable"><mat-icon>build</mat-icon> Developer mode enabled</mat-chip>
+			</mat-chip-list>
 			<button mat-icon-button (click)="refresh()" [class.isRefreshing]="isRefreshing" matTooltip="Refresh">
 				<mat-icon>refresh</mat-icon>
 			</button>
+			<button mat-icon-button [matMenuTriggerFor]="appsMenu" matTooltip="Apps">
+				<mat-icon>apps</mat-icon>
+			</button>
+			<mat-menu #appsMenu="matMenu" xPosition="before" [overlapTrigger]="false" class="google-app-menu">
+				<mat-grid-list cols="3" rowHeight="2:1">
+					<mat-grid-tile class="google-app" *ngFor="let app of apps">{{app.title}}</mat-grid-tile>
+				</mat-grid-list>
+			</mat-menu>
 			<button mat-icon-button [matMenuTriggerFor]="accountMenu" matTooltip="Account">
 				<span class="avatar accent-1">JD</span>
 			</button>
