@@ -1,8 +1,8 @@
 <div class="center no-items-container" *ngIf="emails.length == 0">
-	<mat-icon class="big-icon">inbox</mat-icon>
-	<h1>Nothing in Inbox</h1>
-	<p>Any email that comes in will end up here.</p>
-	<button mat-raised-button color="accent" (click)="populateData()" *ngIf="isDevMode">Populate data</button>
+  <mat-icon class="big-icon">inbox</mat-icon>
+  <h1>Nothing in Inbox</h1>
+  <p>Any email that comes in will end up here.</p>
+  <button mat-raised-button color="accent" (click)="populateData()" *ngIf="isDevMode">Populate data</button>
 </div>
 <button mat-button (click)="clearAll()" *ngIf="emails.length != 0 && isDevMode">Clear all</button>
 <app-messages [emails]="emails"></app-messages>

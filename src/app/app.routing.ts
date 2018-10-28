@@ -10,14 +10,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
 const APP_ROUTES: Routes = [
-	{ path: 'home', component: HomeComponent },
-	{ path: 'bin', component: BinComponent },
-	{ path: 'spam', component: SpamComponent },
-	{ path: 'done', component: DoneComponent },
-	{ path: 'reminders', component: RemindersComponent },
-	{ path: 'snoozed', component: SnoozedComponent },
-	{ path: 'drafts', component: DraftsComponent },
-	{ path: 'sent', component: SentComponent }
-]
+  { path: 'home', component: HomeComponent },
+  { path: 'bin', component: BinComponent },
+  { path: 'spam', component: SpamComponent },
+  { path: 'done', component: DoneComponent },
+  { path: 'reminders', component: RemindersComponent },
+  { path: 'snoozed', component: SnoozedComponent },
+  { path: 'drafts', component: DraftsComponent },
+  { path: 'sent', component: SentComponent }
+];
 
 export const AppRouting: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);

@@ -1,6 +1,6 @@
 //#region Service imports
 import { EmailsService } from './emails.service';
-//#edregion
+//#endregion
 
 //#region App routing import
 import { AppRouting } from './app.routing';
@@ -38,7 +38,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 //#endregion
@@ -51,7 +51,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //#endregion
@@ -60,64 +60,65 @@ import { RemindersDialog } from './reminders/reminders-dialog/reminders-dialog.c
 //#endregion
 //#region Material modules
 const MATERIAL_MODULES = [
-	MatButtonModule,
-	MatCardModule,
-	MatChipsModule,
-	MatDatepickerModule,
-	MatDialogModule,
-	MatExpansionModule,
-	MatFormFieldModule,
-	MatGridListModule,
-	MatIconModule,
-	MatInputModule,
-	MatListModule,
-	MatMenuModule,
-	MatNativeDateModule,
-	MatSidenavModule,
-	MatSnackBarModule,
-	MatToolbarModule,
-	MatTooltipModule
+  MatButtonModule,
+  MatCardModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatSidenavModule,
+  MatSnackBarModule,
+  MatToolbarModule,
+  MatTooltipModule
 ];
 //#endregion
 
 //#region CDK modules
 const CDK_MODULES = [
-	LayoutModule
+  LayoutModule
 ];
 //#endregion
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		HomeComponent,
-		SpamComponent,
-		BinComponent,
-		DoneComponent,
-		RemindersComponent,
-		MessageComponent,
-		MessagesComponent,
-		SnoozedComponent,
-		DraftsComponent,
-		SentComponent,
-		RemindersDialog
-	],
-	imports: [
-		BrowserModule,
-		BrowserAnimationsModule,
-		FormsModule,
-		HttpModule,
-		FlexLayoutModule,
-		AppRouting,
-		MATERIAL_MODULES,
-		CDK_MODULES,
-		SharedModule
-	],
-	bootstrap: [AppComponent],
-	entryComponents: [
-		RemindersDialog
-	],
-	providers: [
-		EmailsService
-	]
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    SpamComponent,
+    BinComponent,
+    DoneComponent,
+    RemindersComponent,
+    MessageComponent,
+    MessagesComponent,
+    SnoozedComponent,
+    DraftsComponent,
+    SentComponent,
+    RemindersDialog
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    FlexLayoutModule,
+    AppRouting,
+    MATERIAL_MODULES,
+    CDK_MODULES,
+    SharedModule
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [
+    RemindersDialog
+  ],
+  providers: [
+    EmailsService,
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 4000, horizontalPosition: 'start' } }
+  ]
 })
 export class AppModule { }

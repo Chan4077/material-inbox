@@ -1,22 +1,22 @@
 <h2 matDialogTitle>New reminder</h2>
 <mat-dialog-content fxLayout="column">
-	<form #reminderForm="ngForm" fxLayout="column">
-		<mat-form-field fxFlex>
-			<input placeholder="Title" [(ngModel)]="reminder.title" matInput required name="title">
-			<mat-error>This is required</mat-error>
-		</mat-form-field>
-		<mat-form-field fxFlex>
-			<textarea placeholder="Description" [(ngModel)]="reminder.desc" matInput rows="3" required name="desc" matTextareaAutosize></textarea>
-			<mat-error>This is required.</mat-error>
-		</mat-form-field>
-		<mat-form-field fxFlex>
-			<input placeholder="Due date" [(ngModel)]="reminder.dueDate" matInput [matDatepicker]="picker" name="dueDate">
-			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-			<mat-datepicker #picker [startAt]="today"></mat-datepicker>
-		</mat-form-field>
-	</form>
+  <form #reminderForm="ngForm" fxLayout="column">
+    <mat-form-field fxFlex>
+      <input placeholder="Title" [(ngModel)]="reminder.title" matInput required name="title">
+      <mat-error>This is required</mat-error>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+      <textarea placeholder="Description" [(ngModel)]="reminder.desc" matInput rows="3" required name="desc" matTextareaAutosize></textarea>
+      <mat-error>This is required.</mat-error>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+      <input placeholder="Due date" [(ngModel)]="reminder.dueDate" matInput [matDatepicker]="picker" name="dueDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker [startAt]="today"></mat-datepicker>
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-	<button mat-button color="primary" (click)="cancel()">Cancel</button>
-	<button mat-button color="primary" (click)="save()" [disabled]="reminderForm.invalid">Save</button>
+  <button mat-button color="primary" (click)="cancel()">Cancel</button>
+  <button mat-button color="primary" (click)="save()" [disabled]="reminderForm.invalid">Save</button>
 </mat-dialog-actions>
