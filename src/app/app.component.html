@@ -9,15 +9,15 @@
     </mat-toolbar>
     <mat-nav-list>
       <a mat-list-item *ngFor="let link of links" [routerLink]="['/'+link.link]" routerLinkActive="active-link" (click)="left.close()">
-        <mat-icon matListIcon>{{link.icon}}</mat-icon>
-        <p matLine>{{link.title}}</p>
+        <mat-icon matListIcon>{{link?.icon}}</mat-icon>
+        <p matLine>{{link?.title}}</p>
         <span fxFlex></span>
-        <span class="unread-badge" [matTooltip]="link.unreadCount+' new emails'" matTooltipPosition="right" *ngIf="link.unreadCount">{{link.unreadCount}}</span>
+        <span class="unread-badge" [matTooltip]="link?.unreadCount+' new emails'" matTooltipPosition="right" *ngIf="link?.unreadCount">{{link?.unreadCount}}</span>
       </a>
       <mat-divider></mat-divider>
       <a mat-list-item *ngFor="let link of otherLinks" [routerLink]="['/'+link.link]" routerLinkActive="active-link" (click)="left.close()">
-        <mat-icon matListIcon>{{link.icon}}</mat-icon>
-        <p matLine>{{link.title}}</p>
+        <mat-icon matListIcon>{{link?.icon}}</mat-icon>
+        <p matLine>{{link?.title}}</p>
       </a>
     </mat-nav-list>
   </mat-sidenav>
@@ -39,7 +39,7 @@
       </button>
       <mat-menu #appsMenu="matMenu" xPosition="before" [overlapTrigger]="false" class="google-app-menu">
         <mat-grid-list cols="3" rowHeight="2:1">
-          <mat-grid-tile class="google-app" *ngFor="let app of apps">{{app.title}}</mat-grid-tile>
+          <mat-grid-tile class="google-app" *ngFor="let app of apps">{{app?.title}}</mat-grid-tile>
         </mat-grid-list>
       </mat-menu>
       <button mat-icon-button [matMenuTriggerFor]="accountMenu" matTooltip="Account">
@@ -62,11 +62,11 @@
       <div class="app-links-left mat-elevation-z3" *ngIf="!isSidenavOpen && !isMobile">
         <mat-nav-list>
           <a mat-list-item *ngFor="let link of links" [routerLink]="['/'+link.link]" routerLinkActive="active-link" (click)="left.close()" [matTooltip]="link.title" matTooltipPosition="right">
-            <mat-icon>{{link.icon}}</mat-icon>
+            <mat-icon>{{link?.icon}}</mat-icon>
           </a>
           <mat-divider></mat-divider>
           <a mat-list-item *ngFor="let link of otherLinks" [routerLink]="['/'+link.link]" routerLinkActive="active-link" (click)="left.close()" [matTooltip]="link.title" matTooltipPosition="right">
-            <mat-icon>{{link.icon}}</mat-icon>
+            <mat-icon>{{link?.icon}}</mat-icon>
           </a>
         </mat-nav-list>
       </div>

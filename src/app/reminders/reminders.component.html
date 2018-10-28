@@ -5,11 +5,11 @@
   <button mat-raised-button color="primary" (click)="addNew()">Create reminder</button>
 </div>
 <mat-card *ngFor="let reminder of reminders" class="reminder-card">
-  <mat-card-title>{{reminder.title}}</mat-card-title>
+  <mat-card-title>{{reminder?.title}}</mat-card-title>
   <mat-card-content>
-    <p>{{reminder.desc}}</p>
-    <p *ngIf="reminder.dueDate">
-      <strong>Due date:</strong> {{reminder.dueDate | date}}</p>
+    <p>{{reminder?.desc}}</p>
+    <p *ngIf="reminder?.dueDate">
+      <strong>Due date:</strong> {{reminder?.dueDate | date}}</p>
   </mat-card-content>
   <mat-card-actions align="end">
     <button mat-button color="primary" (click)="markAsDone(reminder)">Mark as done</button>
